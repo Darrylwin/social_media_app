@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app/components/my_button.dart';
 import 'package:social_media_app/components/my_textfield.dart';
-import 'package:social_media_app/components/square_tile.dart';
+import '../helper/helper_function.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key, required this.onTap});
@@ -38,31 +38,15 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       );
       // pop the loading circle
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
+      if (context.mounted) Navigator.pop(context);
+    }
+    // display error
+    on FirebaseAuthException catch (e) {
       // pop loading circle
       Navigator.pop(context);
       // show error message
-      showErrorMessage(e.code);
+      displayErrorMesageToUser(e.code, context);
     }
-  }
-
-  // error message to user
-  void showErrorMessage(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.blueGrey,
-          title: Center(
-            child: Text(
-              message,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
   }
 
   @override
