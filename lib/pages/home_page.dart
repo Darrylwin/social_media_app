@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
 
   // sign user out method
 
-  void signUserOut() {
+  void logOut() {
     FirebaseAuth.instance.signOut();
   }
 
@@ -19,20 +19,13 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: signUserOut,
+            onPressed: logOut,
             icon: const Icon(Icons.logout),
           ),
         ],
         title: const Text("Home"),
         centerTitle: true,
-      ),
-      body: Center(
-        child: Text(
-          "LOGGED IN AS : ${user.email!}",
-          style: const TextStyle(
-            fontSize: 20,
-          ),
-        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
