@@ -5,7 +5,7 @@ import 'package:social_media_app/components/my_textfield.dart';
 import 'package:social_media_app/components/square_tile.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.onTap});
+  LoginPage({super.key, required this.onTap});
 
   final void Function()? onTap;
 
@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() async {
+  void login() async {
     // show loading circle
     showDialog(
       context: context,
@@ -123,17 +123,15 @@ class _LoginPageState extends State<LoginPage> {
 
                   // forgot password
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
                           "Forgot Password ?",
                           style: TextStyle(
-                            color: Colors.grey.shade600,
-                          ),
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary),
                         ),
                       ],
                     ),
@@ -145,91 +143,27 @@ class _LoginPageState extends State<LoginPage> {
 
                   // sign in button
                   MyButton(
-                    text: "Sign In",
-                    onTap: signUserIn,
+                    text: "Login",
+                    onTap: login,
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 25),
 
-                  // or contiue with
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 5,
-                            color: Colors.grey[400],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            "Or continue with",
-                            style: TextStyle(
-                              color: Colors.grey.shade700,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            thickness: 5,
-                            color: Colors.grey[400],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: 25,
-                  ),
-
-                  // google - apple sign in button
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // google button
-                      SquareTile(
-                        imagePath: 'assets/images/google.png',
-                      ),
-
-                      SizedBox(
-                        width: 25,
-                      ),
-
-                      // google button
-                      SquareTile(
-                        imagePath: 'assets/images/apple.png',
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(
-                    height: 30,
-                  ),
-
-                  // not a member ? register now
+                  // don't have an account ? Register here
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Not a member ?",
+                        "Don't have an account ?",
                         style: TextStyle(
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
                       ),
                       GestureDetector(
                         onTap: widget.onTap,
                         child: const Text(
-                          "Register now",
+                          "     Register now",
                           style: TextStyle(
-                            color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
