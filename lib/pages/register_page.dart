@@ -4,6 +4,8 @@ import 'package:social_media_app/components/my_button.dart';
 import 'package:social_media_app/components/my_textfield.dart';
 import 'package:social_media_app/components/square_tile.dart';
 
+import '../helper/helper_function.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.onTap});
 
@@ -21,50 +23,44 @@ class _RegisterPageState extends State<RegisterPage> {
   final confirmPasswordController = TextEditingController();
 
   // sign user in method
-  void register() async {
+  void registerUser() async {
     // show loading circle
     showDialog(
       context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
 
-    // try sign in
-
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      // pop the loading circle
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
+    // make sure passwords match
+    if (passwordController.text == confirmPasswordController.text) {
       // pop loading circle
       Navigator.pop(context);
-      // show error message
-      showErrorMessage(e.code);
-    }
-  }
 
-  // error message to user
-  void showErrorMessage(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.blueGrey,
-          title: Center(
-            child: Text(
-              message,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
+      // show error to user
+      displayErrorMesageToUser("Password don't match !", context);
+    }
+    // if passwords don't match
+    else {
+      // try creating user
+      try {
+        // create the user
+        UserCredential? userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
         );
-      },
-    );
+
+        // pop loading circle
+        Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        // pop circle
+        Navigator.pop(context);
+
+        // show message to user
+        displayErrorMesageToUser(e.code, context);
+      }
+    }
   }
 
   @override
@@ -165,10 +161,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 25,
                   ),
 
-                  // register button
+                  // registerUser button
                   MyButton(
                     text: "Register",
-                    onTap: register,
+                    onTap: registerUser,
                   ),
 
                   const SizedBox(height: 25),
