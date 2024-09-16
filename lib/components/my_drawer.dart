@@ -52,6 +52,9 @@ class MyDrawer extends StatelessWidget {
                   onTap: () {
                     // pop drawer
                     Navigator.pop(context);
+
+                    // navigate to profile page
+                    Navigator.pushNamed(context, '/profile_page');
                   },
                 ),
               ),
@@ -68,6 +71,8 @@ class MyDrawer extends StatelessWidget {
                   onTap: () {
                     // pop drawer
                     Navigator.pop(context);
+                    // navigate to users page
+                    Navigator.pushNamed(context, '/users_page');
                   },
                 ),
               ),
@@ -76,7 +81,7 @@ class MyDrawer extends StatelessWidget {
 
           // logout tile
           Padding(
-            padding: const EdgeInsets.only(left: 25.0),
+            padding: const EdgeInsets.only(left: 25.0, bottom: 25.0),
             child: ListTile(
               leading: Icon(
                 Icons.logout,
