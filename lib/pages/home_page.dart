@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app/components/my_drawer.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -25,8 +26,10 @@ class HomePage extends StatelessWidget {
         ],
         title: const Text("Home"),
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        elevation: 0,
       ),
+      drawer: MyDrawer(),
     );
   }
 }
